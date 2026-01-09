@@ -15,27 +15,33 @@ export default class extends AbstractView {
 
         // Initial render matches "All"
         return `
-            <div class="min-h-screen bg-gray-50 flex flex-col">
-                 <nav class="bg-white border-b border-gray-200 sticky top-0 z-30">
+            <div class="min-h-screen bg-slate-900 flex flex-col text-white">
+                <!-- Background Gradients -->
+                <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+                    <div class="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-indigo-500/5 rounded-full blur-[120px] animate-pulse-slow"></div>
+                    <div class="absolute bottom-[-10%] left-[-5%] w-[40%] h-[40%] bg-blue-500/5 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+                </div>
+
+                 <nav class="sticky top-0 z-30 glass-dark border-b border-white/10">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div class="flex justify-between h-16">
                             <div class="flex items-center">
                                 <a href="/dashboard" class="flex items-center space-x-2" data-link>
-                                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                                    <div class="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center border border-white/10 hover:bg-slate-700 transition">
                                         <ion-icon name="arrow-back-outline" class="text-white text-xl"></ion-icon>
                                     </div>
-                                    <span class="text-xl font-bold text-gray-900">Back onto Dashboard</span>
+                                    <span class="text-xl font-bold text-white">Back to Dashboard</span>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </nav>
 
-                <div class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+                <div class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full relative z-10">
                     <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-2xl font-bold text-gray-900">Transaction History</h2>
+                        <h2 class="text-2xl font-bold text-white">Transaction History</h2>
                         <div class="flex space-x-2">
-                            <select id="filterType" class="px-3 py-1 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <select id="filterType" class="px-3 py-1 bg-slate-800 border border-slate-700 rounded-md text-sm font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                                 <option value="all">All Transactions</option>
                                 <option value="credit">Income Only</option>
                                 <option value="debit">Expenses Only</option>
@@ -43,7 +49,7 @@ export default class extends AbstractView {
                         </div>
                     </div>
 
-                    <div class="bg-white shadow rounded-lg overflow-hidden p-6" id="transactionsList">
+                    <div class="bg-slate-900/50 shadow-xl border border-white/10 rounded-xl overflow-hidden p-6 backdrop-blur-md" id="transactionsList">
                         <!-- Transactions injected here -->
                     </div>
                 </div>
@@ -61,25 +67,25 @@ export default class extends AbstractView {
         }
 
         if (filtered.length === 0) {
-            list.innerHTML = '<div class="text-center text-gray-500 py-12">No transactions found</div>';
+            list.innerHTML = '<div class="text-center text-slate-500 py-12">No transactions found</div>';
             return;
         }
 
         list.innerHTML = filtered.map(tx => `
-            <div class="flex items-center justify-between p-4 bg-white border border-gray-100 rounded-xl hover:shadow-md transition mb-3 animate-fade-in">
+            <div class="flex items-center justify-between p-4 bg-slate-800/50 border border-white/5 rounded-xl hover:bg-slate-800 transition mb-3 animate-fade-in group">
                 <div class="flex items-center space-x-4">
-                    <div class="w-12 h-12 rounded-full flex items-center justify-center ${tx.type === 'credit' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}">
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center ${tx.type === 'credit' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}">
                         <ion-icon name="${tx.type === 'credit' ? 'arrow-down-outline' : 'arrow-up-outline'}" class="text-xl"></ion-icon>
                     </div>
                     <div>
-                        <div class="text-sm font-bold text-gray-900">${tx.description}</div>
-                        <div class="text-xs text-gray-500">${Utils.formatDate(tx.date)}</div>
-                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${tx.status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+                        <div class="text-sm font-bold text-white group-hover:text-indigo-300 transition">${tx.description}</div>
+                        <div class="text-xs text-slate-500">${Utils.formatDate(tx.date)}</div>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${tx.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-yellow-500/10 text-yellow-400'} mt-1">
                             ${tx.status}
                         </span>
                     </div>
                 </div>
-                <div class="text-sm font-bold ${tx.type === 'credit' ? 'text-green-600' : 'text-gray-900'}">
+                <div class="text-sm font-bold ${tx.type === 'credit' ? 'text-emerald-400' : 'text-white'}">
                     ${tx.type === 'credit' ? '+' : '-'}${Utils.formatCurrency(tx.amount)}
                 </div>
             </div>

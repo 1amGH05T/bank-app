@@ -12,34 +12,40 @@ export default class extends AbstractView {
 
     async getHtml() {
         return `
-            <div class="min-h-screen bg-gray-50 flex flex-col">
-                <!-- Navigation (Simplified for sub-pages) -->
-                <nav class="bg-white border-b border-gray-200 sticky top-0 z-30">
+            <div class="min-h-screen bg-slate-900 flex flex-col text-white">
+                <!-- Background Gradients -->
+                <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+                    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/5 rounded-full blur-[120px] animate-pulse-slow"></div>
+                    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/5 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+                </div>
+
+                <!-- Navigation (Simplified) -->
+                <nav class="sticky top-0 z-30 glass-dark border-b border-white/10">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div class="flex justify-between h-16">
                             <div class="flex items-center">
                                 <a href="/dashboard" class="flex items-center space-x-2" data-link>
-                                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                                    <div class="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center border border-white/10 hover:bg-slate-700 transition">
                                         <ion-icon name="arrow-back-outline" class="text-white text-xl"></ion-icon>
                                     </div>
-                                    <span class="text-xl font-bold text-gray-900">Back onto Dashboard</span>
+                                    <span class="text-xl font-bold text-white">Back to Dashboard</span>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </nav>
 
-                <div class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-                    <div class="max-w-md w-full space-y-8 glass p-8 rounded-2xl shadow-xl bg-white">
+                <div class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="max-w-md w-full space-y-8 glass-dark p-8 rounded-2xl shadow-xl border border-white/10">
                         <div>
-                            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100">
-                                <ion-icon name="paper-plane-outline" class="text-indigo-600 text-2xl"></ion-icon>
+                            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 shadow-lg shadow-indigo-500/30">
+                                <ion-icon name="paper-plane-outline" class="text-white text-3xl"></ion-icon>
                             </div>
-                            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                            <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
                                 Send Money
                             </h2>
-                            <p class="mt-2 text-center text-sm text-gray-600">
-                                Available Balance: <span class="font-bold text-gray-900">${Utils.formatCurrency(this.user.balance)}</span>
+                            <p class="mt-2 text-center text-sm text-slate-400">
+                                Available Balance: <span class="font-bold text-white">${Utils.formatCurrency(this.user.balance)}</span>
                             </p>
                         </div>
                         
@@ -47,23 +53,23 @@ export default class extends AbstractView {
                             <div class="rounded-md shadow-sm -space-y-px">
                                 <div>
                                     <label for="recipient-email" class="sr-only">Recipient Email</label>
-                                    <input id="recipient-email" name="email" type="email" required class="appearance-none rounded-none rounded-t-md relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Recipient Email">
+                                    <input id="recipient-email" name="email" type="email" required class="appearance-none rounded-t-md relative block w-full px-3 py-3 border border-slate-600 placeholder-slate-400 text-white bg-slate-800 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Recipient Email">
                                 </div>
                                 <div>
                                     <label for="amount" class="sr-only">Amount</label>
                                     <div class="relative w-full">
                                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                          <span class="text-gray-500 sm:text-sm">$</span>
+                                          <span class="text-slate-400 sm:text-sm">$</span>
                                         </div>
-                                        <input type="number" name="amount" id="amount" required min="0.01" step="0.01" class="appearance-none rounded-none rounded-b-md relative block w-full pl-7 pr-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="0.00">
+                                        <input type="number" name="amount" id="amount" required min="0.01" step="0.01" class="appearance-none rounded-b-md relative block w-full pl-7 pr-3 py-3 border border-slate-600 placeholder-slate-400 text-white bg-slate-800 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="0.00">
                                     </div>
                                 </div>
                             </div>
 
                             <div>
-                                <button type="submit" id="submitBtn" class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition shadow-lg shadow-indigo-600/30">
+                                <button type="submit" id="submitBtn" class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-400 hover:to-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition shadow-lg shadow-indigo-500/30">
                                     <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                                        <ion-icon name="send-outline" class="text-indigo-500 group-hover:text-indigo-400 text-lg transition"></ion-icon>
+                                        <ion-icon name="send-outline" class="text-indigo-200 group-hover:text-white text-lg transition"></ion-icon>
                                     </span>
                                     Transfer Now
                                 </button>

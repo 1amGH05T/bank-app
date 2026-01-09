@@ -6,6 +6,8 @@ import DashboardView from "./views/DashboardView.js";
 import TransferView from "./views/TransferView.js";
 import TransactionsView from "./views/TransactionsView.js";
 import ProfileView from "./views/ProfileView.js";
+import HowItWorksView from "./views/HowItWorksView.js";
+import TestimonialsView from "./views/TestimonialsView.js";
 import { appStore } from "./store.js";
 
 export const navigateTo = url => {
@@ -22,7 +24,9 @@ const router = async () => {
         { path: "/dashboard", view: DashboardView, protected: true },
         { path: "/transfer", view: TransferView, protected: true },
         { path: "/transactions", view: TransactionsView, protected: true },
-        { path: "/profile", view: ProfileView, protected: true }
+        { path: "/profile", view: ProfileView, protected: true },
+        { path: "/how-it-works", view: HowItWorksView },
+        { path: "/testimonials", view: TestimonialsView }
     ];
 
     // Test each route for potential match
